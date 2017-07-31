@@ -31,5 +31,24 @@ export class HeroesComponent implements OnInit  {
 	ngOnInit(): void {
   		this.getHeroes();
 	}
+
+	add(name: string): void {
+	  name = name.trim();
+	  if (!name) { return; }
+	  this.heroService.create(name)
+	    .then(hero => {
+	      this.heroes.push(hero);
+	      this.selectedHero = null;
+	    });
+	}
+
+	delete(hero: Hero): void {
+	  this.heroService
+	      .delete(hero.id)
+	      .then(() => {
+	        this.heroes = this.heroes.filter(h => h !== hero); //skriv över listan med alla heroes this.heroes genom att filtrera bort allt förutom the hero man tryckte på, dvs den man vill ta  bort
+	        if (this.selectedHero === hero) { this.selectedHero = null; } // sedan om the hero man ville ta bort var den heroen som senast var tryckt gör selected hero till null
+	      });
+	}
 }
 

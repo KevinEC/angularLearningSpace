@@ -1,4 +1,4 @@
-// https://angular.io/tutorial/toh-pt6
+// https://angular.io/tutorial/toh-pt6#hero-service-delete-method
 
 import { Component } from '@angular/core';
 

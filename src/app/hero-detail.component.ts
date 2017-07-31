@@ -31,4 +31,9 @@ export class HeroDetailComponent implements OnInit{
 		//should use CanDeactivate
 		this.location.back();
 	}
+
+	save(): void {
+	  this.heroService.update(this.hero)
+	    .then(() => this.goBack());
+	}
 }

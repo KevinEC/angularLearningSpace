@@ -30,6 +30,29 @@ var HeroesComponent = (function () {
     HeroesComponent.prototype.ngOnInit = function () {
         this.getHeroes();
     };
+    HeroesComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.heroService.create(name)
+            .then(function (hero) {
+            _this.heroes.push(hero);
+            _this.selectedHero = null;
+        });
+    };
+    HeroesComponent.prototype.delete = function (hero) {
+        var _this = this;
+        this.heroService
+            .delete(hero.id)
+            .then(function () {
+            _this.heroes = _this.heroes.filter(function (h) { return h !== hero; }); //skriv över listan med alla heroes this.heroes genom att filtrera bort allt förutom the hero man tryckte på, dvs den man vill ta  bort
+            if (_this.selectedHero === hero) {
+                _this.selectedHero = null;
+            } // sedan om the hero man ville ta bort var den heroen som senast var tryckt gör selected hero till null
+        });
+    };
     return HeroesComponent;
 }());
 HeroesComponent = __decorate([
